@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+{% block title %} Home {% endblock title %}
+{% block body %}
+    <div class="container">
+        <div class="max-w-xl mx-auto mt-16 flex w-full flex-col border rounded-lg bg-white p-8">
+            <h2 class="title-font mb-1 text-lg font-medium text-gray-900">Add a TODO</h2>
+            <form action="/" method="post">
+                <div class="mb-4">
+                    <label for="title" class="text-sm leading-7 text-gray-600">Todo title</label>
+                    <input type="text" id="title" name="title"
+                        class="w-full rounded border border-gray-300 bg-white py-1 px-3 text-base leading-8 text-gray-700 outline-none transition-colors duration-200 ease-in-out focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200" />
+                </div>
+                <div class="mb-4">
+                    <label for="desc" class="text-sm leading-7 text-gray-600">Todo description</label>
+                    <input type="text" id="desc" name="desc"
+                        class="w-full rounded border border-gray-300 bg-white py-1 px-3 text-base leading-8 text-gray-700 outline-none transition-colors duration-200 ease-in-out focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200" />
+                </div>
+                <!-- <div class="mb-4">
+                    <label for="message" class="text-sm leading-7 text-gray-600">Message</label>
+                    <textarea id="message" name="message" class="h-32 w-full resize-none rounded border border-gray-300 bg-white py-1 px-3 text-base leading-6 text-gray-700 outline-none transition-colors duration-200 ease-in-out focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"></textarea>
+                </div> -->
+                <button type="submit"
+                    class="rounded border-0 bg-indigo-500 py-2 px-6 text-lg text-white hover:bg-indigo-600 focus:outline-none">Add</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="container">
+        <h2 class="text-orange-400 text-center font-black text-3xl my-10">My TODO</h2>
+        <div class="flex flex-col items-center bg-black/5">
+            <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
+                <div class="py-2 inline-block min-w-full sm:px-6 lg:px-8">
+                    <div class="overflow-hidden">
+                        {% if allTodo|length==0 %}
+                        <h1>No record</h1>
+                        {% else %}
+                        <table class="min-w-full md:min-w-[700px] ">
+                            <thead class="border-b">
+                                <tr>
+                                    <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">SNo
+                                    </th>
+                                    <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">Title
+                                    </th>
+                                    <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                                        Description
+                                    </th>
+                                    <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">Time
+                                    </th>
+                                    <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                                        Actions
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for todo in allTodo %}
+                                <tr class="border-b">
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                        {{loop.index}}</td>
+                                    <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                                        {{todo.title}}</td>
+                                    <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                                        {{todo.desc}}</td>
+                                    <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                                        {{todo.date_created}}</td>
+                                    <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap flex gap-2">
+                                        <button class="bg-black text-white rounded-lg py-2 px-3">
+                                            <a href="/delete/{{todo.sno}}">
+                                                Delete
+                                            </a>
+                                        </button>
+                                        <button class="bg-black text-white rounded-lg py-2 px-3">
+                                            <a href="/update/{{todo.sno}}">
+                                                Edit
+                                            </a>
+                                        </button>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock body %}    
